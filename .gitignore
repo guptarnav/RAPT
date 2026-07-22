@@ -1,0 +1,17 @@
+data/
+*.parquet
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+.DS_Storebin/
+include/
+lib/
+lib64/
+pyvenv.cfg
+bin/
+include/
+lib/
+lib64/
+pyvenv.cfg
+**/.DS_Store
