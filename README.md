@@ -23,7 +23,7 @@ Run the notebooks in order:
 ## Setup & Installation
 
 1. Clone the repo:
-   git clone <repo-url>
+   git clone <https://github.com/guptarnav/RAPT>
    cd <repo-folder>
 
 2. Install dependencies:
