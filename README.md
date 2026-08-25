@@ -24,7 +24,7 @@ Run the notebooks in order:
 
 1. Clone the repo:
    git clone <https://github.com/guptarnav/RAPT>
-   cd <repo-folder>
+   cd RAPT
 
 2. Install dependencies:
    pip install -r requirements.txt
