@@ -14,25 +14,30 @@ PAIRS = [
 ]
 
 ADF_MAXLAG = 1
-CACHE = "data/prices.parquet"
+# Anchored to the repo root so every notebook reads the same file regardless of cwd.
+CACHE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "prices.parquet")
+
+# Pinned study window (last trading day 2026-07-21). yfinance treats `end` as exclusive.
+START = "2016-07-22"
+END = "2026-07-22"
 
 
-def _download(period="10y"):
+def _download(start=START, end=END):
     tickers = sorted({t for p in PAIRS for t in p})
     raw = {}
     for t in tickers:
-        s = yf.Ticker(t).history(period=period, auto_adjust=True)["Close"]
+        s = yf.Ticker(t).history(start=start, end=end, auto_adjust=True)["Close"]
         s.index = s.index.tz_localize(None).normalize()
         raw[t] = s
     return pd.DataFrame(raw).dropna()
 
 
-def load_panel(period="10y", refresh=False):
+def load_panel(start=START, end=END, refresh=False):
     """Aligned adjusted-close panel for every ticker in PAIRS.
     Builds and caches on first call; reads the cache afterwards.
     Returns (prices, log_prices)."""
     if refresh or not os.path.exists(CACHE):
-        prices = _download(period)
+        prices = _download(start, end)
         os.makedirs(os.path.dirname(CACHE), exist_ok=True)
         prices.to_parquet(CACHE)
     else:

@@ -26,5 +26,9 @@ Run the notebooks in order:
    git clone <https://github.com/guptarnav/RAPT>
    cd RAPT
 
-2. Install dependencies:
+2. Install dependencies (Python 3.13):
+   python3.13 -m venv .venv
+   source .venv/bin/activate
    pip install -r requirements.txt
+
+3. Data: prices are not committed. On first run, `models/data.py` downloads adjusted closes from Yahoo Finance for the pinned window 2016-07-22 → 2026-07-21 and caches them to `data/prices.parquet`; later runs read the cache. Yahoo back-adjusts history for later dividends and splits, so a fresh download has the same dates but slightly different adjusted prices, and results may differ a little from the saved notebook outputs.
